@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#226597</color>
+    <color name="colorPrimaryDark">#113f67</color>
+    <color name="colorAccent">#226597</color>
+    <color name="testColor">#226597</color>
+
+    <color name="setColor1">#f3f9fb</color>
+    <color name="setColor2">#87c0cd</color>
+    <color name="setColor3">#226597</color>
+    <color name="setColor4">#113f67</color>
+
+    <color name="statusBarColor">#115173</color>
+    <color name="mybackgroundcolor">#f3f9fb</color>
+    <color name="bottombar">#115173</color>
+/    <color name="boxcolor1">#ffffff</color>
+
+    <color name="type2Color1">#022c43</color>
+    <color name="type2Color2">#053f5e</color>
+    <color name="type2Color3">#115173</color>
+    <color name="type2Color4">#ffd700</color>
+    <color name="freesia">#F6C324</color>
+
+    <color name="textColorffffff">#ffffff</color>
+
+
+</resources>

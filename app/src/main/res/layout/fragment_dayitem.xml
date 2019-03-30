@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+app:cardCornerRadius="10dp"
+android:layout_marginTop="8dp"
+android:layout_marginEnd="2dp"
+android:layout_marginStart="32dp"
+    app:cardBackgroundColor="@color/boxcolor1">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:paddingStart="4dp"
+            android:id="@+id/dayTimeItem"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:text="00:00 "
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/type2Color1"
+            />
+
+        <TextView
+            android:textColor="@color/type2Color1"
+            android:paddingStart="8dp"
+            android:id="@+id/dayItmeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_alignRight="@id/dayTimeItem"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.google.android.material.internal.CheckableImageButton
+            android:id="@+id/dayItemImg"
+            android:layout_width="55dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_good"
+            android:scaleType="centerCrop"
+            android:background="@color/boxcolor1"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            />
+
+        <TextView
+            android:paddingStart="8dp"
+            android:id="@+id/dayItemContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="memo"
+            />
+    </LinearLayout>
+</LinearLayout>
+</androidx.cardview.widget.CardView>

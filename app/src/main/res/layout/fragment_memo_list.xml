@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:name="com.example.mydailytime_2.MemoFragment"
+    tools:context=".MemoFragment"
+    android:tag="memoFragment"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:name="com.example.mydailytime_2.memoFragment"
+        android:id="@+id/memoList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="@color/mybackgroundcolor"
+        tools:listitem="@layout/fragment_memo"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addMemoBtn"
+        app:useCompatPadding="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        app:fabSize="auto"
+        android:src="@drawable/ic_add_ffffff_24dp" />
+
+</RelativeLayout>
