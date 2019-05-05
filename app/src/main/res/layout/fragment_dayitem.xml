@@ -2,69 +2,67 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-app:cardCornerRadius="10dp"
-android:layout_marginTop="8dp"
-android:layout_marginEnd="2dp"
-android:layout_marginStart="32dp"
-    app:cardBackgroundColor="@color/boxcolor1">
+    >
 
-<LinearLayout
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+    android:background="@drawable/xml_border"
+    >
         <TextView
+            android:gravity="center"
+            android:layout_alignParentStart="true"
             android:paddingStart="4dp"
+            android:paddingEnd="4dp"
             android:id="@+id/dayTimeItem"
-            android:layout_width="55dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:00 "
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:text="오전 00 시"
+            android:textSize="11sp"
             android:textColor="@color/type2Color1"
+            android:layout_gravity="center"
             />
 
+    <com.google.android.material.internal.CheckableImageButton
+        android:id="@+id/dayItemImg"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:layout_margin="2dp"
+        android:background="@color/boxcolor1"
+        android:scaleType="centerCrop"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:src="@drawable/ic_good" />
+
+    <LinearLayout
+        android:background="@drawable/xml_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/dayItemImg"
+        android:layout_toEndOf="@+id/dayTimeItem"
+        android:orientation="vertical">
+
+
         <TextView
-            android:textColor="@color/type2Color1"
-            android:paddingStart="8dp"
             android:id="@+id/dayItmeTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_alignRight="@id/dayTimeItem"
-            />
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <com.google.android.material.internal.CheckableImageButton
-            android:id="@+id/dayItemImg"
-            android:layout_width="55dp"
-            android:layout_height="35dp"
-            android:src="@drawable/ic_good"
-            android:scaleType="centerCrop"
-            android:background="@color/boxcolor1"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            />
+
+            android:textColor="@color/type2Color1"
+            android:textSize="15sp" />
 
         <TextView
-            android:paddingStart="8dp"
             android:id="@+id/dayItemContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="memo"
-            />
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+             />
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>
 </androidx.cardview.widget.CardView>

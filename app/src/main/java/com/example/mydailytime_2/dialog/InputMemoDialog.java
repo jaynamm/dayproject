@@ -24,10 +24,10 @@ public class InputMemoDialog extends DialogFragment implements View.OnClickListe
     //private static final int LAYOUT = R.layout.input_memo_dialog;
 
     private onSaveButtonClickListener mSaveListener;
-    TextInputEditText memoTitleDialog;
-    TextInputEditText memoContentDialog;
-    TextView saveButton;
-    TextView backButton;
+    private TextInputEditText memoTitleDialog;
+    private TextInputEditText memoContentDialog;
+    private TextView saveButton;
+    private TextView backButton;
     private String mMemoId;
 
     @Override

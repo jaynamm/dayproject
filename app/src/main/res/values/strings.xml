@@ -4,4 +4,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="Title">Title</string>
+    <string name="memo">Memo</string>
+    <string name="caleder">Calender</string>
+    <string name="today_title">Today Title</string>
+    <string name="todayMeta">오늘의 컨셉을 정해보세요.</string>
+    <string name="add_schedule">add schedule</string>
 </resources>

@@ -13,13 +13,15 @@
     <color name="statusBarColor">#115173</color>
     <color name="mybackgroundcolor">#f3f9fb</color>
     <color name="bottombar">#115173</color>
-/    <color name="boxcolor1">#ffffff</color>
+    <color name="boxcolor1">#ffffff</color>
 
     <color name="type2Color1">#022c43</color>
     <color name="type2Color2">#053f5e</color>
     <color name="type2Color3">#115173</color>
     <color name="type2Color4">#ffd700</color>
     <color name="freesia">#F6C324</color>
+
+    <color name="grey">#808080</color>
 
     <color name="textColorffffff">#ffffff</color>
 

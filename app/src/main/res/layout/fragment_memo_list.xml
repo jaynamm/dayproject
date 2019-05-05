@@ -9,15 +9,32 @@
     android:layout_width="match_parent"
     >
 
+    <TextView
+        android:id="@+id/memoFragmentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/memo"
+        android:background="@color/type2Color3"
+        android:textColor="@color/textColorffffff"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:paddingStart="8dp"
+        android:paddingEnd="0dp"
+        android:elevation="2dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="6dp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:name="com.example.mydailytime_2.memoFragment"
+
         android:id="@+id/memoList"
+        android:name="com.example.mydailytime_2.memoFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
+        android:layout_below="@+id/memoFragmentTitle"
+        android:layout_marginTop="0dp"
         android:background="@color/mybackgroundcolor"
-        tools:listitem="@layout/fragment_memo"
-        />
+        tools:listitem="@layout/fragment_memo" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addMemoBtn"

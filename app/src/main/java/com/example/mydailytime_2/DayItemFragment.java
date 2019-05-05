@@ -2,6 +2,8 @@ package com.example.mydailytime_2;
 
 import android.content.Context;
 import android.os.Bundle;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,25 +25,37 @@ public class DayItemFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String TODAY_DATE ="today_date";
+    private static DayItemFragment dayItemFragment;
     // TODO: Customize parameters
     private OnListFragmentInteractionListener mListener;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
+    TextView dayItemDate;
+    String selectDate;
     public DayItemFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if(isVisibleToUser){
+            selectDate=((MainActivity)getActivity()).selectDate;
+            dayItemDate.setText(selectDate);
+            //해당 프레그먼트가 열리는 순간 $$이때 내부에 있는 데이터들을 바꿔야한다.
+        }
+        else{
 
-    public static DayItemFragment newInstance(int columnCount) {
-        DayItemFragment fragment = new DayItemFragment();
+            //해당프레그먼트가 보이지 않게 됐을때
+        }
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    public static DayItemFragment newInstance(String todayDate) {
+        if (dayItemFragment != null) {dayItemFragment = new DayItemFragment();}
+
         Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
+        args.putString(TODAY_DATE,todayDate);
+        dayItemFragment.setArguments(args);
+        return dayItemFragment;
     }
 
     @Override
@@ -55,7 +69,9 @@ public class DayItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dayitem_list, container, false);
 
-        TextView itemTitle = (TextView)view.findViewById(R.id.fragment2Title);
+
+        dayItemDate = (TextView)view.findViewById(R.id.dayItem_List_Date);
+        TextView fragment2Title = (TextView)view.findViewById(R.id.fragment2Title);
         TextView fragment2Memo = (TextView)view.findViewById(R.id.fragment2memo);
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.list);
         // Set the adapter
@@ -64,6 +80,12 @@ public class DayItemFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new MyDayItemRecyclerViewAdapter(DayItemContent.ITEMS, mListener));
         }
+
+//        if(getArguments()!= null){
+//        String selectDate=getArguments().getString(TODAY_DATE);
+//        dayItemDate.setText(selectDate);
+//        }
+
         return view;
     }
 

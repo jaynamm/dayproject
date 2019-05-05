@@ -43,14 +43,6 @@ public class MemoFragment extends Fragment {
     public MemoFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    public static MemoFragment newInstance(int columnCount) {
-        MemoFragment fragment = new MemoFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

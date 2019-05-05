@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,21 +15,33 @@ import android.widget.Toast;
 
 import com.example.mydailytime_2.dummy.DayItemContent;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity implements DayItemFragment.OnListFragmentInteractionListener{
     MenuItem prevMenuItem;
     PagerAdapter pagerAdapter;
+    private long backPressedTime = 0;
+    ViewPager pager;
+    String selectDate;
+    String todayDateNum;
+    Date mDate;
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat mFormatDay = new SimpleDateFormat("dd");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        todayDateNum = getTime("dd");
+        selectDate = getTime(null);
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        final ViewPager pager = findViewById(R.id.pager);
-
-
+        pager = findViewById(R.id.pager);
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
+        //프레그먼트를 미리 양쪽으로 2page 씩 생성
+        pager.setOffscreenPageLimit(2);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -50,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements DayItemFragment.O
 
             });
 
+        //페이지 넘김시 호출되는 메소드
         pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -57,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements DayItemFragment.O
             }
 
             @Override
+            //페이지에 변화가 생겼을때 호출
             public void onPageSelected(int position) {
-                //페이지 넘김시 호출되는 메소드
                 if (prevMenuItem != null) {
                     prevMenuItem.setChecked(false);
                 } else {
@@ -85,8 +99,38 @@ public class MainActivity extends AppCompatActivity implements DayItemFragment.O
 
 
 //뒤로가기 버튼
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//    }
+    @Override
+    public void onBackPressed() {
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+        long FINISH_INTERVAL_TIME = 2000;
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime)
+        {
+            super.onBackPressed();
+        }
+        else
+        {
+            backPressedTime = tempTime;
+            Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    //프레그먼트 갱신
+    public void refresh(){
+        pagerAdapter.notifyDataSetChanged();
+    }
+
+    //get today
+    private String getTime(@Nullable String type){
+        long mNow = System.currentTimeMillis();
+        mDate = new Date(mNow);
+        if(type!=null) {
+            return mFormatDay.format(mDate);
+        }
+        else {
+            return mFormat.format(mDate);
+        }
+
+    }
 }

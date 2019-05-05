@@ -23,7 +23,7 @@ public class DayItemContent {
      */
     public static final Map<String, DayItemVO> ITEM_MAP = new HashMap<String, DayItemVO>();
 
-    private static final int COUNT = 25;
+    private static final int COUNT = 24;
 
     static {
         // Add some sample items.
@@ -39,7 +39,21 @@ public class DayItemContent {
 
     //VO 객체 생성시 쓰는 메소드
     private static DayItemVO createDayItemVO(int position) {
-        return new DayItemVO(String.valueOf(position), "Item " + position, "Item Content");
+        return new DayItemVO(getDateFormat(position), null, null);
+    }
+
+    private static String getDateFormat(int position) {
+        String setTime;
+        String text = " 시";
+        int timePosition = position;
+        if (timePosition < 14){
+            setTime = "오전 ";
+        }else{
+            setTime="오후 ";
+            timePosition=timePosition - 12;
+        }
+
+        return setTime+String.format("%02d",timePosition-1)+text;
     }
 
 //    private static String makeDetails(int position) {

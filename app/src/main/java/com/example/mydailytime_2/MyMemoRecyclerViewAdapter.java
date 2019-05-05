@@ -19,9 +19,11 @@ public class MyMemoRecyclerViewAdapter extends CursorRecyclerViewAdapter<MyMemoR
 
 //    private final List<MemoItemVO> mValues;
 //    private final OnListFragmentInteractionListener mListener;
+private memoItemLongClickedListener myMemoItemLongClickedListener;
+
 
     private memoItemClickedListener myMemoItemClickedListener;
-    private memoItemLongClickedListener myMemoItemLongClickedListener;
+
 
     interface memoItemClickedListener{
         void memoItemClicked(MemoItemContent.MemoItemVO memoitemVO);
