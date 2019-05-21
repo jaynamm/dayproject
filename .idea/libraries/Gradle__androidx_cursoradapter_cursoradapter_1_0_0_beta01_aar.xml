@@ -5,8 +5,6 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/cursoradapter-1.0.0-beta01.aar/c0d90798e446fe6ecb047c6656bc6076/res" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.cursoradapter/cursoradapter/1.0.0-beta01/a5deb021ac955130e65005868d0a59a63c24ea3e/cursoradapter-1.0.0-beta01-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

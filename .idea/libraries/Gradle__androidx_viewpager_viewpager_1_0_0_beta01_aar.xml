@@ -5,8 +5,6 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/viewpager-1.0.0-beta01.aar/723067abee3f06c1d11accb2dc8854bf/res" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.viewpager/viewpager/1.0.0-beta01/6396e724f9170888d524747b142d2482438bf1d2/viewpager-1.0.0-beta01-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

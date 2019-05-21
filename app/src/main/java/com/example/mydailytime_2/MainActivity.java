@@ -1,22 +1,21 @@
 package com.example.mydailytime_2;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.annotation.Nullable;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.mydailytime_2.dummy.DayItemContent;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity implements DayItemFragment.OnListFragmentInteractionListener{
     MenuItem prevMenuItem;
@@ -122,10 +121,10 @@ public class MainActivity extends AppCompatActivity implements DayItemFragment.O
     }
 
     //get today
-    private String getTime(@Nullable String type){
+    private String getTime(@Nullable String i){
         long mNow = System.currentTimeMillis();
         mDate = new Date(mNow);
-        if(type!=null) {
+        if(i!=null) {
             return mFormatDay.format(mDate);
         }
         else {

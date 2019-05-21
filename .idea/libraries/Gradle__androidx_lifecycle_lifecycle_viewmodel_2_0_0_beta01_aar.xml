@@ -5,8 +5,6 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lifecycle-viewmodel-2.0.0-beta01.aar/3fe638b177aa977131d00239f153f822/res" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-viewmodel/2.0.0-beta01/9668e76d469d97800cdf13690a3df186e3b501c8/lifecycle-viewmodel-2.0.0-beta01-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

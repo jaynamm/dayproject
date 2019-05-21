@@ -5,8 +5,6 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/lifecycle-livedata-core-2.0.0-beta01.aar/8679b64cef85c9e406db52e541b7bcc5/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.lifecycle/lifecycle-livedata-core/2.0.0-beta01/a9b4353a67cfebb94c36605deac8c2b10ce4596f/lifecycle-livedata-core-2.0.0-beta01-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>

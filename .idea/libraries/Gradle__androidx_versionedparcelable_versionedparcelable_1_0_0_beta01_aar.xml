@@ -5,8 +5,6 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/versionedparcelable-1.0.0-beta01.aar/7696e400cc78d23dfeb0d4ad3cceea9a/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.versionedparcelable/versionedparcelable/1.0.0-beta01/554f7fd1fb68b2713e45e974704aead204b5dd22/versionedparcelable-1.0.0-beta01-sources.jar!/" />
-    </SOURCES>
+    <SOURCES />
   </library>
 </component>
