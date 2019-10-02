@@ -24,6 +24,12 @@
     <color name="grey">#808080</color>
 
     <color name="textColorffffff">#ffffff</color>
+    <color name="color_ffffff">#ffffff</color>
+    <color name="color_21a4ff">#21a4ff</color>
+    <color name="color_000000">#000000</color>
+
+    <drawable name="focused">#88ff00</drawable>
+    <drawable name="selected">#ffd700</drawable>
 
 
 </resources>

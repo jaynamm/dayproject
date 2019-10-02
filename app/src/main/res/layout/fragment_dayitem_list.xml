@@ -17,7 +17,7 @@
             android:id="@+id/fragment2Title"
             android:textColor="@color/textColorffffff"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="41dp"
             android:paddingStart="8dp"
             android:paddingEnd="0dp"
             android:text="@string/today_title"

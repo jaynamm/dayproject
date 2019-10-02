@@ -1,35 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
     <TextView
         android:gravity="center_horizontal"
-        android:id="@+id/calenderDayTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="1"/>
-    <TextView
-        android:id="@+id/dayList1"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffff11"/>
-    <TextView
-        android:id="@+id/dayList2"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ff11ff"/>
-    <TextView
-        android:id="@+id/dayList3"
-        android:gravity="center_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#11ffff"/>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+        android:id="@+id/tv_item_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:textSize="15sp"
+        />
+
+</LinearLayout>

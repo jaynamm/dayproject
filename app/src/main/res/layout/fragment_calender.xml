@@ -1,130 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/mybackgroundcolor"
-    tools:context=".CalenderFragment">
+    android:background="@color/color_ffffff" >
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/caleder"-->
-        <!--android:background="@color/type2Color3"-->
-        <!--android:textColor="@color/textColorffffff"-->
-        <!--android:textSize="20sp"-->
-        <!--android:textStyle="italic"-->
-        <!--android:paddingStart="8dp"-->
-        <!--android:paddingEnd="0dp"-->
-        <!--android:elevation="2dp"-->
-        <!--android:paddingTop="8dp"-->
-        <!--android:paddingBottom="6dp"-->
-        <!--/>-->
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_date"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <!--헤더-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="@color/type2Color3"
-            android:orientation="horizontal">
-
-            <TextView
-                android:textColor="@color/textColorffffff"
-                android:id="@+id/monthText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingStart="8dp"
-                android:paddingEnd="0dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="6dp"
-                android:textSize="20sp"
-                android:elevation="2dp"
-                android:textStyle="italic"
-                />
-
-        </LinearLayout>
-        <!--요일-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="#eaeae9"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="일"
-                android:textSize="9sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="월"
-                android:textSize="9sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="화"
-                android:textSize="9sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="수"
-                android:textSize="9sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="목"
-                android:textSize="9sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="금"
-                android:textSize="9sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-
-                android:text="토"
-                android:textSize="9sp" />
-        </LinearLayout>
-        <!--달력뷰-->
-        <GridView
-            android:id="@+id/monthView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="7"
-            android:stretchMode="columnWidth"
-            android:horizontalSpacing="1dp"
-            android:verticalSpacing="1dp"
-             />
-    </LinearLayout>
+        android:layout_height="41dp"
+        android:background="@color/type2Color3"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_ffffff"
+        android:paddingStart="8dp"
+        android:paddingEnd="0dp"
+        android:textStyle="italic"
+        android:textSize="20sp" />
+    <GridView
+        android:layout_marginTop="10dp"
+        android:id="@+id/gridview"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:numColumns="7"
+        >
+    </GridView>
 
 </LinearLayout>
+
+
+    <!--android:listSelector="@color/"-->
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:background="@color/mybackgroundcolor"-->
+    <!--tools:context=".CalenderFragment">-->
+
+    <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="@string/caleder"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:background="@color/type2Color3"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textColor="@color/textColorffffff"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textSize="20sp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:textStyle="italic"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:paddingStart="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:paddingEnd="0dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:elevation="2dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:paddingTop="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:paddingBottom="6dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
+
+        <!--&lt;!&ndash;헤더&ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:animateLayoutChanges="true"-->
+            <!--android:background="@color/type2Color3"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<TextView-->
+                <!--android:textColor="@color/textColorffffff"-->
+                <!--android:id="@+id/monthText"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:paddingStart="8dp"-->
+                <!--android:paddingEnd="0dp"-->
+                <!--android:paddingTop="8dp"-->
+                <!--android:paddingBottom="6dp"-->
+                <!--android:textSize="20sp"-->
+                <!--android:elevation="2dp"-->
+                <!--android:textStyle="italic"-->
+                <!--/>-->
+
+        <!--</LinearLayout>-->
+        <!--&lt;!&ndash;요일&ndash;&gt;-->
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="20dp"-->
+            <!--android:background="#eaeae9"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="일"-->
+                <!--android:textSize="9sp" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="월"-->
+                <!--android:textSize="9sp" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="화"-->
+                <!--android:textSize="9sp" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="수"-->
+                <!--android:textSize="9sp" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="목"-->
+                <!--android:textSize="9sp" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="금"-->
+                <!--android:textSize="9sp" />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:gravity="center"-->
+
+                <!--android:text="토"-->
+                <!--android:textSize="9sp" />-->
+        <!--</LinearLayout>-->
+        <!--&lt;!&ndash;달력뷰&ndash;&gt;-->
+        <!--<GridView-->
+            <!--android:id="@+id/monthView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:numColumns="7"-->
+            <!--android:stretchMode="columnWidth"-->
+            <!--android:horizontalSpacing="1dp"-->
+            <!--android:verticalSpacing="1dp"-->
+             <!--/>-->
+    <!--</LinearLayout>-->
+
+<!--</LinearLayout>-->

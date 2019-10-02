@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 
-import com.example.mydailytime_2.MainActivity;
-
 import java.util.Calendar;
 
 /**
@@ -96,9 +94,11 @@ public class MonthAdapter extends BaseAdapter {
     }
 
     public void setPreviousMonth() {
+        //달력에 한달을 뺀다
         mCalendar.add(Calendar.MONTH, -1);
+        //날짜계산
         recalculate();
-
+        //해당 뷰에 들어있던 날짜 데이터를 바꾼다.
         resetDayNumbers();
         selectedPosition = -1;
     }

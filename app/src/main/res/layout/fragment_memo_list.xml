@@ -12,7 +12,7 @@
     <TextView
         android:id="@+id/memoFragmentTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="41dp"
         android:text="@string/memo"
         android:background="@color/type2Color3"
         android:textColor="@color/textColorffffff"
