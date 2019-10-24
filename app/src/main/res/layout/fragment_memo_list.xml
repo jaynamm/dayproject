@@ -9,29 +9,49 @@
     android:layout_width="match_parent"
     >
 
-    <TextView
-        android:id="@+id/memoFragmentTitle"
+    <RelativeLayout
+        android:id="@+id/memoFragmentTitleLayout"
         android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:text="@string/memo"
+        android:layout_height="wrap_content"
         android:background="@color/type2Color3"
-        android:textColor="@color/textColorffffff"
-        android:textSize="20sp"
-        android:textStyle="italic"
-        android:paddingStart="8dp"
-        android:paddingEnd="0dp"
-        android:elevation="2dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="6dp"
-        />
+        >
 
+        <ImageButton
+            android:id="@+id/memu_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_margin="6dp"
+            android:src="@drawable/ic_more_vert_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:background="@color/type2Color3"
+
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/memoFragmentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:text="@string/memo"
+
+            android:textColor="@color/textColorffffff"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            android:paddingStart="8dp"
+            android:paddingEnd="0dp"
+            android:elevation="2dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="6dp"
+            />
+
+    </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
 
         android:id="@+id/memoList"
         android:name="com.example.mydailytime_2.memoFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/memoFragmentTitle"
+        android:layout_below="@+id/memoFragmentTitleLayout"
         android:layout_marginTop="0dp"
         android:background="@color/mybackgroundcolor"
         tools:listitem="@layout/fragment_memo" />

@@ -2,18 +2,18 @@ package com.example.mydailytime_2;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mydailytime_2.dummy.DayItemContent;
 import com.example.mydailytime_2.dummy.DayItemContent.DayItemVO;
+import com.google.android.material.internal.CheckableImageButton;
 
 /**
  * A fragment representing a list of Items.
@@ -74,6 +74,7 @@ public class DayItemFragment extends Fragment {
         TextView fragment2Title = (TextView)view.findViewById(R.id.fragment2Title);
         TextView fragment2Memo = (TextView)view.findViewById(R.id.fragment2memo);
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.list);
+        CheckableImageButton dayItemImg = (CheckableImageButton)view.findViewById(R.id.dayItemImg);
         // Set the adapter
         if (recyclerView instanceof RecyclerView) {
             Context context = view.getContext();

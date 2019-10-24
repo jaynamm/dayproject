@@ -22,7 +22,7 @@ public class DayItemContent {
      * A map of sample (dummy) items, by ID.
      */
     public static final Map<String, DayItemVO> ITEM_MAP = new HashMap<String, DayItemVO>();
-
+//아이템 갯수
     private static final int COUNT = 24;
 
     static {
@@ -39,9 +39,10 @@ public class DayItemContent {
 
     //VO 객체 생성시 쓰는 메소드
     private static DayItemVO createDayItemVO(int position) {
-        return new DayItemVO(getDateFormat(position), null, null);
+        return new DayItemVO(null, getDateFormat(position), null, null);
     }
 
+    //datitem 시간설정
     private static String getDateFormat(int position) {
         String setTime;
         String text = " 시";
@@ -69,6 +70,7 @@ public class DayItemContent {
      * A dummy item representing a piece of content.
      */
     public static class DayItemVO {
+        public final String itemDate;
         public final String itemTime;
         public final String itemTitle;
         public final String itemContent;
@@ -76,8 +78,9 @@ public class DayItemContent {
 
 
 
-        public DayItemVO(String itemTime, String itemTitle, String itemContent) {
-            this.itemTime = itemTime;
+        public DayItemVO(String itemDate, String itemTime, String itemTitle, String itemContent) {
+            this.itemDate = itemDate;
+            this.itemTime =  itemTime;
             this.itemTitle = itemTitle;
             this.itemContent = itemContent;
             this.itemImg = 0;
@@ -85,7 +88,7 @@ public class DayItemContent {
 
         @Override
         public String toString() {
-            return itemTitle;
+            return itemTime+" : "+itemTitle;
         }
     }
 }

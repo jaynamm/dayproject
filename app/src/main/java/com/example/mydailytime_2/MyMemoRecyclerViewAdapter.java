@@ -1,8 +1,5 @@
 package com.example.mydailytime_2;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
@@ -10,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.mydailytime_2.dummy.MemoItemContent;
 import com.example.mydailytime_2.dummy.MemoItemContent.MemoItemVO;
-import com.example.mydailytime_2.helper.MemoContract;
 import com.example.mydailytime_2.library.CursorRecyclerViewAdapter;
 
 public class MyMemoRecyclerViewAdapter extends CursorRecyclerViewAdapter<MyMemoRecyclerViewAdapter.ViewHolder>{

@@ -9,4 +9,6 @@
     <string name="today_title">Today Title</string>
     <string name="todayMeta">오늘의 컨셉을 정해보세요.</string>
     <string name="add_schedule">add schedule</string>
+    <string name="month">month</string>
+    <string name="config">config</string>
 </resources>

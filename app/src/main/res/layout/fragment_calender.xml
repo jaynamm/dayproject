@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -17,15 +18,111 @@
         android:paddingEnd="0dp"
         android:textStyle="italic"
         android:textSize="20sp" />
-    <GridView
-        android:layout_marginTop="10dp"
-        android:id="@+id/gridview"
-        android:layout_weight="1"
-        android:layout_height="0dp"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:numColumns="7"
-        >
-    </GridView>
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/beforeMonthButton"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_before_month_black_36dp"
+            android:background="@color/color_ffffff"
+            android:layout_centerVertical="true"
+            />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/nextMonthButton"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_next_month_black_36dp"
+            android:background="@color/color_ffffff"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+            android:id="@+id/monthText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:text="@string/month"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:orientation="horizontal">
+
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:text="S"
+    android:textSize="@dimen/calenderTopTextSize" />
+
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:text="M"
+        android:textSize="@dimen/calenderTopTextSize" />
+
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:text="T"
+        android:textSize="@dimen/calenderTopTextSize" />
+
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:text="W"
+        android:textSize="@dimen/calenderTopTextSize" />
+
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:text="T"
+        android:textSize="@dimen/calenderTopTextSize" />
+
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:text="F"
+        android:textSize="@dimen/calenderTopTextSize" />
+
+    <TextView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:text="S"
+        android:textSize="@dimen/calenderTopTextSize" />
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:numColumns="7" />
 
 </LinearLayout>
 
