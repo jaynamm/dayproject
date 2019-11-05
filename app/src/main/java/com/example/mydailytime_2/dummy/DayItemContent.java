@@ -5,22 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
- */
+
 public class DayItemContent {
 
-    /**
-     * An array of sample (dummy) items.
-     */
     public static final List<DayItemVO> ITEMS = new ArrayList<DayItemVO>();
-
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
     public static final Map<String, DayItemVO> ITEM_MAP = new HashMap<String, DayItemVO>();
 //아이템 갯수
     private static final int COUNT = 24;
@@ -39,11 +27,11 @@ public class DayItemContent {
 
     //VO 객체 생성시 쓰는 메소드
     private static DayItemVO createDayItemVO(int position) {
-        return new DayItemVO(null, getDateFormat(position), null, null);
+        return new DayItemVO(null, createTimeData(position), null, null);
     }
 
     //datitem 시간설정
-    private static String getDateFormat(int position) {
+    private static String createTimeData(int position) {
         String setTime;
         String text = " 시";
         int timePosition = position;
@@ -69,7 +57,7 @@ public class DayItemContent {
     /**
      * A dummy item representing a piece of content.
      */
-    public static class DayItemVO {
+    private static class DayItemVO {
         public final String itemDate;
         public final String itemTime;
         public final String itemTitle;

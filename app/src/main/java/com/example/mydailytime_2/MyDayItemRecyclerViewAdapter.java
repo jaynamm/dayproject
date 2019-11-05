@@ -1,83 +1,162 @@
 package com.example.mydailytime_2;
 
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.mydailytime_2.DayItemFragment.OnListFragmentInteractionListener;
-import com.example.mydailytime_2.dummy.DayItemContent.DayItemVO;
-import com.google.android.material.internal.CheckableImageButton;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mydailytime_2.helper.DayItemVO;
+
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link DayItemVO} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DayItemVO> dayItemVl;
-    private final OnListFragmentInteractionListener mListener;
+    private List<DayItemVO> data;
+    private LayoutInflater layoutInflater;
+    private Context context;
 
-    public MyDayItemRecyclerViewAdapter(List<DayItemVO> items, OnListFragmentInteractionListener listener) {
-        dayItemVl = items;
-        mListener = listener;
+    DayItemClickedListener myDayItemClickedListener;
+    DayItemLongClickedListener myDayItemLongClickedListener;
+
+    interface DayItemClickedListener{
+        void dayItemClicked(DayItemVO dayItemVO);
+    }
+    void setMyDayItemClickedListener(DayItemClickedListener listener){
+        myDayItemClickedListener=listener;
+    }
+
+    interface DayItemLongClickedListener {
+        void dayItemLongClicked(DayItemVO dayItemVO);
+    }
+    void setMyDayItemLongClickedListener(DayItemLongClickedListener listener){
+        myDayItemLongClickedListener=listener;
+    }
+
+
+    public MyDayItemRecyclerViewAdapter(Context context) {
+        data = new ArrayList<>();
+        this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_dayitem, parent, false);
+        View view = layoutInflater.inflate(R.layout.fragment_dayitem, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = dayItemVl.get(position);
-        holder.dayTitle.setText(dayItemVl.get(position).itemTitle);
-        holder.dayItemcontent.setText(dayItemVl.get(position).itemContent);
-        holder.dayTime.setText(dayItemVl.get(position).itemTime);
+        holder.bind(data.get(position));
 
-        holder.dayItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
-                }
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
-        return dayItemVl.size();
+        return data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View dayItemView;
-        public final TextView dayTitle;
-        public final TextView dayItemcontent;
-        public final TextView dayTime;
-        public final CheckableImageButton dayitemimg;
-        public DayItemVO mItem;
 
-        public ViewHolder(View view) {
+        private View dayItemView;
+        private final TextView dayTitle;
+        private final TextView dayItemcontent;
+        private final TextView dayTime;
+//        private final CheckableImageButton dayitemimg;
+
+
+         ViewHolder(View view) {
             super(view);
             dayItemView = view;
             dayTitle = (TextView) view.findViewById(R.id.dayItmeTitle);
             dayItemcontent = (TextView) view.findViewById(R.id.dayItemContent);
             dayTime = (TextView) view.findViewById(R.id.dayTimeItem);
-            dayitemimg = (CheckableImageButton)view.findViewById(R.id.dayItemImg);
+//            dayitemimg = (CheckableImageButton)view.findViewById(R.id.dayItemImg);
+        }
+
+        void bind(DayItemVO dayItemVO){
+
+            if(dayItemVO != null);{
+                dayTitle.setText(dayItemVO.getItemTitle());
+                dayItemcontent.setText(dayItemVO.getItemContent());
+//                dayitemimg.setImageAlpha(dayItemVO.getItemImg());
+                dayTime.setText(dayItemVO.getItemTime());
+                dayItemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        myDayItemClickedListener.dayItemClicked(dayItemVO);
+
+                    }
+                });
+                dayItemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        myDayItemLongClickedListener.dayItemLongClicked(dayItemVO);
+                        return true;
+                    }
+                });
+//                img clicked event
+//                dayitemimg.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                });
+            }
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + dayItemcontent.getText() + "'";
+        }
+    }
+
+    public void setData(List<DayItemVO> newData) {
+        if (data != null) {
+            DayItemDiffCallback dayItemDiffCallback = new DayItemDiffCallback(data, newData);
+            DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(dayItemDiffCallback);
+
+            data.clear();
+            data.addAll(newData);
+            diffResult.dispatchUpdatesTo(this);
+        } else {
+            // first initialization
+            data = newData;
+        }
+    }
+
+    class DayItemDiffCallback extends DiffUtil.Callback{
+
+         private final List<DayItemVO> newDayItem, oldDayItem;
+
+        DayItemDiffCallback(List<DayItemVO> newDayItem, List<DayItemVO> oldDayItem) {
+            this.newDayItem = newDayItem;
+            this.oldDayItem = oldDayItem;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldDayItem.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newDayItem.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldDayItem.get(oldItemPosition).getId() == newDayItem.get(newItemPosition).getId();
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldDayItem.get(oldItemPosition).equals(newDayItem.get(newItemPosition));
         }
     }
 }

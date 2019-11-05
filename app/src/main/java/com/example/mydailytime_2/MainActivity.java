@@ -5,19 +5,18 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.mydailytime_2.dummy.DayItemContent;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-public class MainActivity extends AppCompatActivity implements DayItemFragment.OnListFragmentInteractionListener{
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class MainActivity extends AppCompatActivity {
     MenuItem prevMenuItem;
     PagerAdapter pagerAdapter;
     private long backPressedTime = 0;
@@ -89,12 +88,13 @@ public class MainActivity extends AppCompatActivity implements DayItemFragment.O
         });
 
 
-    }
 
-    @Override
-    public void onListFragmentInteraction(DayItemContent.DayItemVO item) {
-        Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
     }
+//
+//    @Override
+//    public void onListFragmentInteraction(DayItemContent.DayItemVO item) {
+//        Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
+//    }
 
 
 //뒤로가기 버튼

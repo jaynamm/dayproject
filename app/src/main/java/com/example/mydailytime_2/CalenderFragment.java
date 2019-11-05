@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,7 +90,8 @@ public class CalenderFragment extends Fragment{
         curMonthFormat = new SimpleDateFormat("MM", Locale.KOREA);
         curDayFormat = new SimpleDateFormat("dd", Locale.KOREA);
         //현재 날짜을 상단 텍스트뷰에 뿌려줌
-        tvDate.setText(curYearFormat.format(date) + "/" + curMonthFormat.format(date) +"/"+ curDayFormat.format(date));
+        String today = curYearFormat.format(date) + "-" + curMonthFormat.format(date) +"-"+ curDayFormat.format(date);
+        tvDate.setText(today);
 
         //달력 공백을 만들어줄 arraylist
         dayList = new ArrayList<String>();
@@ -139,6 +141,7 @@ public class CalenderFragment extends Fragment{
 //
 //
 
+        ((MainActivity) Objects.requireNonNull(getActivity())).selectDate= today;
         ((MainActivity)getActivity()).pager.setCurrentItem(1); //calender fragment 생성 후 DayitemFragment로 이동
         return view;
     }

@@ -6,19 +6,17 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydailytime_2.dialog.InputMemoDialog;
 import com.example.mydailytime_2.dummy.MemoItemContent.MemoItemVO;
@@ -121,7 +119,8 @@ public class MemoFragment extends Fragment {
 
         return view;
     }
-    
+
+    //다이얼로그를 호출하고 받은 데이터를 가져와서 DB에 저장
     private void showInputMemoDialog(String id,String title,String content) {
         InputMemoDialog inputMemoDialog = InputMemoDialog.newInstance(id,title,content);
         inputMemoDialog.setOnSaveButtonClickListener(new InputMemoDialog.onSaveButtonClickListener() {

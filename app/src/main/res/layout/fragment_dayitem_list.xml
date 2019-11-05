@@ -34,16 +34,16 @@
             android:text="2019-00-00"
             android:textColor="@color/textColorffffff"/>
     </RelativeLayout>
-    <TextView
-        android:id="@+id/fragment2memo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/todayMeta"
-        android:paddingStart="8dp"
-        android:paddingEnd="0dp"
-        android:background="@color/textColorffffff"
-        android:elevation="2dp"
-        />
+<!--    <TextView-->
+<!--        android:id="@+id/fragment2memo"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/todayMeta"-->
+<!--        android:paddingStart="8dp"-->
+<!--        android:paddingEnd="0dp"-->
+<!--        android:background="@color/textColorffffff"-->
+<!--        android:elevation="2dp"-->
+<!--        />-->
 
 
     <!--<com.google.android.material.textfield.TextInputLayout-->
