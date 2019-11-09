@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/app_config"
+        android:title="config"
+        />
+    <item
+        android:id="@+id/app_alram"
+        android:checkable="true"
+        android:checked="true"
+        android:title="alram" />
+</menu>
