@@ -90,11 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-//
-//    @Override
-//    public void onListFragmentInteraction(DayItemContent.DayItemVO item) {
-//        Toast.makeText(this, item.toString(), Toast.LENGTH_SHORT).show();
-//    }
 
 
 //뒤로가기 버튼

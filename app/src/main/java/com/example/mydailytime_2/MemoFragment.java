@@ -1,10 +1,7 @@
 package com.example.mydailytime_2;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +11,20 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydailytime_2.dialog.InputMemoDialog;
-import com.example.mydailytime_2.dummy.MemoItemContent.MemoItemVO;
-import com.example.mydailytime_2.helper.MemoContract;
-import com.example.mydailytime_2.helper.MemoDBHelper;
+import com.example.mydailytime_2.helper.MemoVO;
+import com.example.mydailytime_2.viewModel.MemoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class MemoFragment extends Fragment {
 
+    private MemoViewModel memoViewModel;
     private MyMemoRecyclerViewAdapter memoAdapter;
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -55,6 +53,8 @@ public class MemoFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_memo_list, container, false);
+        memoViewModel = ViewModelProviders.of(this).get(MemoViewModel.class);
+        memoViewModel.getAll().observe(this, memoVOS -> memoAdapter.setData(memoVOS));
 
         // Set the adapter
         FloatingActionButton addMemoBtn = (FloatingActionButton)view.findViewById(R.id.addMemoBtn);
@@ -62,58 +62,47 @@ public class MemoFragment extends Fragment {
 
         if (memoRecyclerView != null) {
             Context context = view.getContext();
-            Cursor cursor = getMemoCursor();
 
             if (mColumnCount <= 1) {
                 memoRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 memoRecyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-             memoAdapter = new MyMemoRecyclerViewAdapter(getActivity(), cursor);
+             memoAdapter = new MyMemoRecyclerViewAdapter(getActivity());
             memoRecyclerView.setAdapter(memoAdapter);
         }
 
         addMemoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInputMemoDialog(null,null,null);
+                showInputMemoDialog(new MemoVO());
             }
         });
 
         memoAdapter.setMyMemoItemClickedListener(new MyMemoRecyclerViewAdapter.memoItemClickedListener() {
             @Override
-            public void memoItemClicked(MemoItemVO memoitemVO) {
-                showInputMemoDialog(memoitemVO.getMemoId(),memoitemVO.getMemoTitle(),memoitemVO.getMemoContent());
+            public void memoItemClicked(MemoVO memoVO) {
+                showInputMemoDialog(memoVO);
+
             }
         });
 
         memoAdapter.setMyMemoItemLongClickedListener(new MyMemoRecyclerViewAdapter.memoItemLongClickedListener() {
             @Override
-            public void memoItemLongClicked(MemoItemVO memoItemVO) {
-                final String deleteId = memoItemVO.getMemoId();
-
+            public void memoItemLongClicked(MemoVO memoVO) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("메모 삭제");
                 builder.setMessage("메모를 삭제하시겠습니까?");
                 builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        SQLiteDatabase db =MemoDBHelper.getInstance(getActivity()).getWritableDatabase();
-                        int deleteCount =db.delete(MemoContract.MemoEntry.MEMOTABLE_NAME,
-                                    MemoContract.MemoEntry._ID+" = "+deleteId,null);
-                        if (deleteCount==0){
-                            Toast.makeText(getActivity(), "삭제에 문제가 발생하였습니다.", Toast.LENGTH_SHORT).show();
-                        }else {
-                            memoAdapter.swapCursor(getMemoCursor());
-                            Toast.makeText(getActivity(), "삭제 완료", Toast.LENGTH_SHORT).show();
-                        }
-
+                        memoViewModel.delete(memoVO);
                     }
                 });
                 builder.setNegativeButton("취소" ,null);
                 builder.show();
-
             }
+
         });
 
 
@@ -121,37 +110,14 @@ public class MemoFragment extends Fragment {
     }
 
     //다이얼로그를 호출하고 받은 데이터를 가져와서 DB에 저장
-    private void showInputMemoDialog(String id,String title,String content) {
-        InputMemoDialog inputMemoDialog = InputMemoDialog.newInstance(id,title,content);
+    private void showInputMemoDialog(MemoVO memoVO) {
+        InputMemoDialog inputMemoDialog = InputMemoDialog.newInstance(memoVO);
         inputMemoDialog.setOnSaveButtonClickListener(new InputMemoDialog.onSaveButtonClickListener() {
+
             @Override
-            public void onSaveButtonClick(String mMemoId,String memoTitle, String memoContent) {
-
-                Toast.makeText(getActivity(), "Title :"+memoTitle+"memo :"+memoContent, Toast.LENGTH_SHORT).show();
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(MemoContract.MemoEntry.COLUCMN_NAME_MEMOTITLE,memoTitle);
-                contentValues.put(MemoContract.MemoEntry.COLUCMN_NAME_MEMOCONTENTS,memoContent);
-
-                SQLiteDatabase db = MemoDBHelper.getInstance(getContext()).getWritableDatabase();
-
-                if (mMemoId.equals("-1")){
-                    long newRowId = db.insert(MemoContract.MemoEntry.MEMOTABLE_NAME,null,contentValues);
-                    if (newRowId == -1) {
-                        Toast.makeText(getContext(), "저장에 문제발생 ", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getContext(), "저장완료", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    int upDateRowId=db.update(MemoContract.MemoEntry.MEMOTABLE_NAME,contentValues,MemoContract.MemoEntry._ID+" = "+mMemoId,null);
-                    if (upDateRowId == 0) {
-                        Toast.makeText(getContext(), "저장에 문제발생 ", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(getContext(), "저장완료", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                memoAdapter.swapCursor(getMemoCursor());
+            public void onSaveButtonClick(MemoVO memoVO) {
+                Toast.makeText(getActivity(), "Title :"+memoVO.getMemoTitle()+"memo :"+memoVO.getMemoContent(), Toast.LENGTH_SHORT).show();
+                memoViewModel.insert(memoVO);
             }
 
             @Override
@@ -163,13 +129,6 @@ public class MemoFragment extends Fragment {
 
         assert getFragmentManager() != null;
         inputMemoDialog.show(getFragmentManager(), "fragment_dialog_new");
-    }
-
-    private Cursor getMemoCursor() {
-        MemoDBHelper memoDBHelper = MemoDBHelper.getInstance(getActivity());
-        return memoDBHelper.getReadableDatabase().
-               query(MemoContract.MemoEntry.MEMOTABLE_NAME,
-                       null,null,null,null,null,MemoContract.MemoEntry._ID+" DESC");
     }
 
     //OnListFragmentInteractionListener 를 상속받지 못했을때 발생하는 메소드
@@ -203,7 +162,6 @@ public class MemoFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
 //    public interface OnListFragmentInteractionListener {
-//        // TODO: Update argument type and name
 //        void onListFragmentInteraction(MemoItemVO item);
 //    }
 
