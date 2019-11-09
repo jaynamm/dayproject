@@ -146,6 +146,7 @@ public class DayItemFragment extends Fragment {
                 Toast.makeText(getActivity(), "cancel button", Toast.LENGTH_SHORT).show();
             }
         });
+        inputDayItemDialog.show(getFragmentManager(), "inputDayItemDialog_new");
             }
 
     @Override

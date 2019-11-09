@@ -59,11 +59,8 @@ public class InputDayItemDialog extends DialogFragment implements View.OnClickLi
 
     public static InputDayItemDialog newInstance(DayItemVO dayItemVO) {
         Bundle bundle = new Bundle();
-//        bundle.putInt(DayItem_DIALOG_ITEM_ID, itemId);
-//        bundle.putString(DayItem_DIALOG_ITEM_TITLE, title);
-//        bundle.putString(DayItem_DIALOG_ITEM_CONTENT, content);
-//        bundle.putString(DayItem_DIALOG_ITEM_TITLE_TIME, time);
         Log.d("InputDayItemDialog", "newInstance실행 ");
+        Log.d("InputDayItemDialog", "dayItem.toString :"+dayItemVO.toString());
         bundle.putSerializable(INPUT_DIALOG_DAYITEM,dayItemVO);
         InputDayItemDialog fragment = new InputDayItemDialog();
         fragment.setArguments(bundle);
@@ -74,6 +71,7 @@ public class InputDayItemDialog extends DialogFragment implements View.OnClickLi
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.input_dayitem_dialog, container, false);
+        Log.d("InputDayItemDialog", "inflater ");
         DayItemTitleDialog = (TextInputEditText)view.findViewById(R.id.DayItemInputdialog_Title);
         DayItemContentDialog = (TextInputEditText)view.findViewById(R.id.DayItemInputDialog_Content);
 
@@ -95,10 +93,7 @@ public class InputDayItemDialog extends DialogFragment implements View.OnClickLi
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-//        getArgument에 값이 없으면 데이터를 설정
-//        if (getArguments() != null) {
-//            mSalutation = getArguments().getString(WHICH_SALUTATION);
-//        }
+        Log.d("InputDayItemDialog", "onCreate");
         super.onCreate(savedInstanceState);
     }
 
