@@ -142,7 +142,7 @@ public class CalenderFragment extends Fragment{
 //
 
         ((MainActivity) Objects.requireNonNull(getActivity())).selectDate= today;
-        ((MainActivity)getActivity()).pager.setCurrentItem(1); //calender fragment 생성 후 DayitemFragment로 이동
+//        ((MainActivity)getActivity()).pager.setCurrentItem(1); //calender fragment 생성 후 DayitemFragment로 이동
         return view;
     }
 
@@ -207,7 +207,7 @@ public class CalenderFragment extends Fragment{
             Integer today = mCal.get(Calendar.DAY_OF_MONTH);
             String sToday = String.valueOf(today);
             if (sToday.equals(getItem(position))) { //오늘 day 텍스트 컬러 변경
-                holder.tvItemGridView.setTextColor(getResources().getColor(R.color.color_000000));  
+                holder.tvItemGridView.setTextColor(getResources().getColor(R.color.color_000000));
             }
             return convertView;
         }

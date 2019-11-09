@@ -15,8 +15,6 @@ import com.example.mydailytime_2.R;
 import com.example.mydailytime_2.helper.MemoVO;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.io.Serializable;
-
 public class InputMemoDialog extends DialogFragment implements View.OnClickListener{
     private static final String MEMO_DIALOG_ITEM_ID = "memo_item_id";
     private static final String MEMO_DIALOG_ITEM_TITLE = "memo_item_title";
@@ -62,7 +60,7 @@ public class InputMemoDialog extends DialogFragment implements View.OnClickListe
 
     public static InputMemoDialog newInstance(MemoVO memoVO) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(MEMO_DIALOG_ITEMS, (Serializable) memoVO);
+        bundle.putSerializable(MEMO_DIALOG_ITEMS, memoVO);
 //        bundle.putInt(MEMO_DIALOG_ITEM_ID, itemId);
 //        bundle.putString(MEMO_DIALOG_ITEM_TITLE, title);
 //        bundle.putString(MEMO_DIALOG_ITEM_CONTENT, content);
@@ -86,9 +84,7 @@ public class InputMemoDialog extends DialogFragment implements View.OnClickListe
             memoTemp= (MemoVO) getArguments().get(MEMO_DIALOG_ITEMS);
             memoTitleDialog.setText(memoTemp.getMemoTitle());
             memoContentDialog.setText(memoTemp.getMemoContent());
-//            mMemoId = getArguments().getInt(MEMO_DIALOG_ITEM_ID,-1);
-//            memoTitleDialog.setText(getArguments().getString(MEMO_DIALOG_ITEM_TITLE));
-//            memoContentDialog.setText(getArguments().getString(MEMO_DIALOG_ITEM_CONTENT));
+
         }
         saveButton.setOnClickListener(this);
         backButton.setOnClickListener(this);

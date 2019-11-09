@@ -13,7 +13,7 @@ import java.util.List;
 @Dao
 public interface MemoDAO {
 
-    @Query("SELECT * FROM MemoVO")
+    @Query("SELECT * FROM MemoVO ORDER BY MEMO_ID DESC")
     LiveData<List<MemoVO>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

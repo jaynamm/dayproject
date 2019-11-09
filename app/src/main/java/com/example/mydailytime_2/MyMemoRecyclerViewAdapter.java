@@ -57,6 +57,20 @@ public class MyMemoRecyclerViewAdapter extends RecyclerView.Adapter<MyMemoRecycl
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(data.get(position));
+        holder.memoItemVO = data.get(position);
+        holder.memoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myMemoItemClickedListener.memoItemClicked(holder.memoItemVO);
+            }
+        });
+        holder.memoView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                myMemoItemLongClickedListener.memoItemLongClicked(holder.memoItemVO);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -130,19 +144,7 @@ public class MyMemoRecyclerViewAdapter extends RecyclerView.Adapter<MyMemoRecycl
         memoContent.setText(memoVo.getMemoContent());
         memoDate.setText(memoVo.getMemoDate());
 
-        memoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myMemoItemClickedListener.memoItemClicked(memoItemVO);
-            }
-        });
-        memoView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                myMemoItemLongClickedListener.memoItemLongClicked(memoItemVO);
-                return true;
-            }
-        });
+
     }
 
 

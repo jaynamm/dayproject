@@ -1,23 +1,27 @@
 package com.example.mydailytime_2.helper;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class DayItemVO {
+public class DayItemVO implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "ITEM_ID")
     private int id;
-//    @ColumnInfo(name = "item_Date")
+    @ColumnInfo(name = "ITEM_DATE")
     private String itemDate;
-//    @ColumnInfo(name = "item_Time")
+    @ColumnInfo(name = "ITEM_TIME")
     private String itemTime;
-//    @ColumnInfo(name = "item_Title")
+    @ColumnInfo(name = "ITEM_TABLE")
     private String itemTitle;
-//    @ColumnInfo(name = "item_Content")
+    @ColumnInfo(name = "ITEM_CONTENT")
     private String itemContent;
-//    @ColumnInfo(name = "item_Img")
+    @ColumnInfo(name = "ITEM_IMG")
     private int itemImg;
 
     public int getId() {

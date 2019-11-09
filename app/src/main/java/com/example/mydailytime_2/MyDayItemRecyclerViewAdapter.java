@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,8 +21,8 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
     private LayoutInflater layoutInflater;
     private Context context;
 
-    DayItemClickedListener myDayItemClickedListener;
-    DayItemLongClickedListener myDayItemLongClickedListener;
+    private DayItemClickedListener myDayItemClickedListener;
+    private DayItemLongClickedListener myDayItemLongClickedListener;
 
     interface DayItemClickedListener{
         void dayItemClicked(DayItemVO dayItemVO);
@@ -44,16 +45,38 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
 
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.fragment_dayitem, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder( ViewHolder holder, int position) {
         holder.bind(data.get(position));
+        holder.dayItemVO=data.get(position);
+        holder.dayItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDayItemClickedListener.dayItemClicked(holder.dayItemVO);
 
+            }
+        });
+        holder.dayItemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                myDayItemLongClickedListener.dayItemLongClicked(holder.dayItemVO);
+                return true;
+            }
+        });
+//                img clicked event
+//                dayitemimg.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                });
     }
 
     @Override
@@ -67,6 +90,7 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
         private final TextView dayTitle;
         private final TextView dayItemcontent;
         private final TextView dayTime;
+        private DayItemVO dayItemVO;
 //        private final CheckableImageButton dayitemimg;
 
 
@@ -79,41 +103,16 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
 //            dayitemimg = (CheckableImageButton)view.findViewById(R.id.dayItemImg);
         }
 
-        void bind(DayItemVO dayItemVO){
+        void bind(final DayItemVO dayItemVO){
 
-            if(dayItemVO != null);{
                 dayTitle.setText(dayItemVO.getItemTitle());
                 dayItemcontent.setText(dayItemVO.getItemContent());
 //                dayitemimg.setImageAlpha(dayItemVO.getItemImg());
                 dayTime.setText(dayItemVO.getItemTime());
-                dayItemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        myDayItemClickedListener.dayItemClicked(dayItemVO);
 
-                    }
-                });
-                dayItemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        myDayItemLongClickedListener.dayItemLongClicked(dayItemVO);
-                        return true;
-                    }
-                });
-//                img clicked event
-//                dayitemimg.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                    }
-//                });
-            }
+
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + dayItemcontent.getText() + "'";
-        }
     }
 
     public void setData(List<DayItemVO> newData) {

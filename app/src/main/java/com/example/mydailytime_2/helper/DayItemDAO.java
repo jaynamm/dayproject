@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -15,10 +16,10 @@ public interface DayItemDAO {
     @Query("SELECT * FROM DayItemVO")
     LiveData<List<DayItemVO>> getAll();
 
-    @Query("SELECT * FROM DayItemVO WHERE DATE(itemDate)=(:today) ")
+    @Query("SELECT * FROM DayItemVO WHERE DATE(ITEM_DATE)=(:today) ORDER BY ITEM_TIME ASC")
     LiveData<List<DayItemVO>> getDateData(String today);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(DayItemVO vo);
 
     @Update
@@ -26,6 +27,5 @@ public interface DayItemDAO {
 
     @Delete
     void delete(DayItemVO vo);
-
 
 }

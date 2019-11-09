@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -39,11 +40,11 @@ public class DayItemFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if(isVisibleToUser){
-            selectDate=((MainActivity) Objects.requireNonNull(getActivity())).selectDate;
+
             dayItemDate.setText(selectDate);
 //            Log.i("DayItemFregment","selectDateInsert 실행");
 //            dayItemModel.selectDateInsert(selectDate);
-//            //해당 프레그먼트가 열리는 순간 $$이때 내부에 있는 데이터들을 바꿔야한다.
+            //해당 프레그먼트가 열리는 순간 $$이때 내부에 있는 데이터들을 바꿔야한다.
         }
         else{
 
@@ -63,7 +64,7 @@ public class DayItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        selectDate=((MainActivity) Objects.requireNonNull(getActivity())).selectDate;
     }
 
     @Override
@@ -94,33 +95,34 @@ public class DayItemFragment extends Fragment {
 //        }
 
         //day item 데이터 베이스의 데이터 교체시 콜백함수 (데이터 관찰)
-        dayItemModel.getAll().observe(this, dayItemVOS -> {
+        dayItemModel.getDateData(selectDate).observe(this, dayItemVOS -> {
             mDayItemAdapter.setData(dayItemVOS);
-            mDayItemAdapter.notifyDataSetChanged();
+            if (mDayItemAdapter.getItemCount()==0){
+                Log.i("DayItemFregment","selectDateInsert 실행");
+                dayItemModel.selectDateInsert(selectDate);
+            }
         });
-        Log.i("DayItemFregment","selectDateInsert 실행");
-        dayItemModel.selectDateInsert(selectDate);
-        //        클릭리스너
+
+        //클릭리스너
         mDayItemAdapter.setMyDayItemClickedListener(new MyDayItemRecyclerViewAdapter.DayItemClickedListener() {
             @Override
             public void dayItemClicked(DayItemVO dayItemVO) {
-                showInputDayItemDialog(dayItemVO.getId(),dayItemVO.getItemTime(),dayItemVO.getItemTitle(),dayItemVO.getItemContent());
+                Log.d("DayItemFragment", "dayItemClicked:"+dayItemVO.getItemTime());
+                showInputDayItemDialog(dayItemVO);
 
             }
         });
-        //롱클릭 리스너
+        //롱클릭 리스너 delete 구문인데 필요할까?
 //        mDayItemAdapter.setMyDayItemLongClickedListener(new MyDayItemRecyclerViewAdapter.DayItemLongClickedListener() {
 //            @Override
 //            public void dayItemLongClicked(DayItemVO dayItemVO) {
-//                final String deleteId = dayItemVO.getId();
-//
 //                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 //                builder.setTitle("메모 삭제");
 //                builder.setMessage("메모를 삭제하시겠습니까?");
 //                builder.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
-//
+//                        dayItemModel.delete(dayItemVO);
 //                    }
 //                });
 //                builder.setNegativeButton("취소" ,null);
@@ -130,17 +132,18 @@ public class DayItemFragment extends Fragment {
 //        });
         return view;
     }
-    private void showInputDayItemDialog(int id,String time,String title,String content) {
-        InputDayItemDialog inputDayItemDialog = InputDayItemDialog.newInstance(id, time, title, content);
+
+    private void showInputDayItemDialog(DayItemVO dayItemVO) {
+        InputDayItemDialog inputDayItemDialog = InputDayItemDialog.newInstance(dayItemVO);
         inputDayItemDialog.setOnSaveButtonClickListener(new InputDayItemDialog.onSaveButtonClickListener() {
             @Override
-            public void onSaveButtonClick(int mDayItemId, String mDayItemTime, String DayItemTitle, String DayItemContent) {
-
+            public void onSaveButtonClick(DayItemVO dayItemVO) {
+                dayItemModel.insert(dayItemVO);
             }
 
             @Override
             public void onCancelButtonClick() {
-
+                Toast.makeText(getActivity(), "cancel button", Toast.LENGTH_SHORT).show();
             }
         });
             }

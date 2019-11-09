@@ -31,6 +31,7 @@ public class DayItemViewModel extends AndroidViewModel {
        return itemDB.dayItemDAO().getAll();
     }
 
+
     public void insert(DayItemVO itemVO){
         new InsertAsyncTask(itemDB.dayItemDAO()).execute(itemVO);
     }
@@ -45,18 +46,16 @@ public class DayItemViewModel extends AndroidViewModel {
     //calender에서 날짜를 클릭하면 실행되는 메소드 (아규먼트에서 실행되는게 좋으려나 )
     //DB에서 날짜를 대조 후 해당되는 날짜의 데이터가 없으면 새로 만들어준다.
     public void selectDateInsert(String date){
-        if(itemDB.dayItemDAO().getDateData(date)==null){
-            Log.i("DayItemViewModel","selectDateInsert item 24개 생성");
-            for(int i= 0; i<24; i++) {
+
+            Log.i("DayItemViewModel", "selectDateInsert item 24개 생성");
+            for (int i = 0; i < 24; i++) {
                 DayItemVO temp = new DayItemVO();
                 temp.setItemDate(date);
                 temp.setItemTime(createTimeData(i));
+                Log.d("(selectDateInsert" + i + ")", temp.getItemDate() + "," + temp.getItemTime());
                 insert(temp);
             }
-        }
-        else {
-            Log.i("DayItemViewModel", "날짜에 해당되는 DayItem 데이터를 가져옴");
-        }
+
 
     }
         private static String createTimeData(int position) {

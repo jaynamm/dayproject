@@ -8,11 +8,13 @@ import androidx.room.TypeConverters;
 
 import com.example.mydailytime_2.library.TimesTempConverter;
 
+import java.io.Serializable;
+
 @Entity
-public class MemoVO{
+public class MemoVO implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_ID")
+    @ColumnInfo(name = "MEMO_ID")
     private int memoId;
     @Nullable
     @ColumnInfo(name = "COLUMN_NAME_MEMOTITLE")

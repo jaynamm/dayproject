@@ -2,6 +2,7 @@ package com.example.mydailytime_2.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +13,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.mydailytime_2.R;
+import com.example.mydailytime_2.helper.DayItemVO;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class InputDayItemDialog extends DialogFragment implements View.OnClickListener {
-    private static final String DayItem_DIALOG_ITEM_ID = "DayItem_item_id";
-    private static final String DayItem_DIALOG_ITEM_TITLE = "DayItem_item_title";
-    private static final String DayItem_DIALOG_ITEM_CONTENT = "DayItem_item_content";
-    private static final String DayItem_DIALOG_ITEM_TITLE_TIME = "DayItem_item_title_time";
-    private  static final String REQUEST_RESET_DayItem  = "request_reset_DayItem";
+    private  static final String INPUT_DIALOG_DAYITEM  = "input_dialog_dayitem";
     //private static final int LAYOUT = R.layout.input_DayItem_dialog;
 
     private onSaveButtonClickListener mSaveListener;
@@ -28,16 +26,18 @@ public class InputDayItemDialog extends DialogFragment implements View.OnClickLi
     private TextView timeTitle;
     private TextView saveButton;
     private TextView backButton;
-    private int mDayItemId;
+    private DayItemVO itemTemp;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.DayItemInputDialog_save:
-                String DayItemTimeTitle = timeTitle.getText().toString();
                 String DayItemTitle = DayItemTitleDialog.getText().toString();
                 String DayItemContent = DayItemContentDialog.getText().toString();
-                mSaveListener.onSaveButtonClick(mDayItemId,DayItemTimeTitle,DayItemTitle,DayItemContent);
+                itemTemp.setItemTitle(DayItemTitle);
+                itemTemp.setItemContent(DayItemContent);
+
+                mSaveListener.onSaveButtonClick(itemTemp);
                 dismiss();
                 break;
             case R.id.DayItemInputDialog_cancle:
@@ -49,7 +49,7 @@ public class InputDayItemDialog extends DialogFragment implements View.OnClickLi
     }
 
     public interface onSaveButtonClickListener{
-        void onSaveButtonClick(int mDayItemId,String mDayItemTime,String DayItemTitle,String DayItemContent);
+        void onSaveButtonClick(DayItemVO dayItemVO);
         void onCancelButtonClick();
     }
     public void setOnSaveButtonClickListener(onSaveButtonClickListener listener){
@@ -57,13 +57,14 @@ public class InputDayItemDialog extends DialogFragment implements View.OnClickLi
     }
 
 
-    public static InputDayItemDialog newInstance(int itemId,String time, String title, String content) {
+    public static InputDayItemDialog newInstance(DayItemVO dayItemVO) {
         Bundle bundle = new Bundle();
-        bundle.putInt(DayItem_DIALOG_ITEM_ID, itemId);
-        bundle.putString(DayItem_DIALOG_ITEM_TITLE, title);
-        bundle.putString(DayItem_DIALOG_ITEM_CONTENT, content);
-        bundle.putString(DayItem_DIALOG_ITEM_TITLE_TIME, time);
-
+//        bundle.putInt(DayItem_DIALOG_ITEM_ID, itemId);
+//        bundle.putString(DayItem_DIALOG_ITEM_TITLE, title);
+//        bundle.putString(DayItem_DIALOG_ITEM_CONTENT, content);
+//        bundle.putString(DayItem_DIALOG_ITEM_TITLE_TIME, time);
+        Log.d("InputDayItemDialog", "newInstance실행 ");
+        bundle.putSerializable(INPUT_DIALOG_DAYITEM,dayItemVO);
         InputDayItemDialog fragment = new InputDayItemDialog();
         fragment.setArguments(bundle);
         return fragment;
@@ -81,10 +82,10 @@ public class InputDayItemDialog extends DialogFragment implements View.OnClickLi
         backButton = (TextView) view.findViewById(R.id.DayItemInputDialog_cancle);
 
         if (getArguments() != null){
-            mDayItemId = getArguments().getInt(DayItem_DIALOG_ITEM_ID,-1);
-            DayItemTitleDialog.setText(getArguments().getString(DayItem_DIALOG_ITEM_TITLE));
-            DayItemContentDialog.setText(getArguments().getString(DayItem_DIALOG_ITEM_CONTENT));
-            timeTitle.setText(getArguments().getString(DayItem_DIALOG_ITEM_TITLE_TIME));
+            itemTemp= (DayItemVO) getArguments().get(INPUT_DIALOG_DAYITEM);
+            DayItemTitleDialog.setText(itemTemp.getItemTitle());
+            DayItemContentDialog.setText(itemTemp.getItemContent());
+            timeTitle.setText(itemTemp.getItemTime());
         }
         saveButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
