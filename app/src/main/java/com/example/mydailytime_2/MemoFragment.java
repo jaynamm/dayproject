@@ -21,6 +21,8 @@ import com.example.mydailytime_2.helper.MemoVO;
 import com.example.mydailytime_2.viewModel.MemoViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Objects;
+
 
 public class MemoFragment extends Fragment {
 
@@ -117,6 +119,7 @@ public class MemoFragment extends Fragment {
             @Override
             public void onSaveButtonClick(MemoVO memoVO) {
                 Toast.makeText(getActivity(), "Title :"+memoVO.getMemoTitle()+"memo :"+memoVO.getMemoContent(), Toast.LENGTH_SHORT).show();
+                memoVO.setMemoDate(((MainActivity) Objects.requireNonNull(getActivity())).currentTime);
                 memoViewModel.insert(memoVO);
             }
 

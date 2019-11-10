@@ -24,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     String selectDate;
     String todayDateNum;
     Date mDate;
+    String currentTime;
+    SimpleDateFormat currentTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat mFormatDay = new SimpleDateFormat("dd");
 
@@ -32,12 +34,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //현재시간
+        long now = System.currentTimeMillis();
+        Date nowDate = new Date(now);
+        currentTime = currentTimeFormat.format(nowDate);
+
         todayDateNum = getTime("dd");
         selectDate = getTime(null);
+
         final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         pager = findViewById(R.id.pager);
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
+
         //프레그먼트를 미리 양쪽으로 2page 씩 생성
         pager.setOffscreenPageLimit(2);
 

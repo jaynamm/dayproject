@@ -112,6 +112,22 @@ public class DayItemFragment extends Fragment {
 
             }
         });
+
+        mDayItemAdapter.setItemImgClickedListener(new MyDayItemRecyclerViewAdapter.ItemImgClickedListener() {
+            @Override
+            public void dayItemClicked(DayItemVO dayItemVO) {
+                int tempNum = dayItemVO.getItemImg();
+                if(tempNum>=2){
+                    tempNum=0;
+                }else{
+                    tempNum++;
+                }
+
+                dayItemVO.setItemImg(tempNum);
+                dayItemModel.insert(dayItemVO);
+            }
+        });
+
         //롱클릭 리스너 delete 구문인데 필요할까?
 //        mDayItemAdapter.setMyDayItemLongClickedListener(new MyDayItemRecyclerViewAdapter.DayItemLongClickedListener() {
 //            @Override
@@ -132,6 +148,14 @@ public class DayItemFragment extends Fragment {
 //        });
         return view;
     }
+
+//    public void imgRepalce(DayItemVO dayItemVO ){
+//        switch (dayItemVO.getItemImg()){
+//            case 0 : holder.dayitemimg.setImageResource(R.drawable.ic_good);
+//            case 1 : holder.dayitemimg.setImageResource(R.drawable.ic_soso);
+//            case 2 : holder.dayitemimg.setImageResource(R.drawable.ic_bad);
+//        }
+//    }
 
     private void showInputDayItemDialog(DayItemVO dayItemVO) {
         InputDayItemDialog inputDayItemDialog = InputDayItemDialog.newInstance(dayItemVO);

@@ -52,6 +52,7 @@ public class DayItemViewModel extends AndroidViewModel {
                 DayItemVO temp = new DayItemVO();
                 temp.setItemDate(date);
                 temp.setItemTime(createTimeData(i));
+                temp.setItemImg(0);
                 Log.d("(selectDateInsert" + i + ")", temp.getItemDate() + "," + temp.getItemTime());
                 insert(temp);
             }

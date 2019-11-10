@@ -53,7 +53,7 @@ android:layout_height="wrap_content"
             android:paddingEnd="8dp"
 
             android:textColor="@color/type2Color1"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/dayItemContent"

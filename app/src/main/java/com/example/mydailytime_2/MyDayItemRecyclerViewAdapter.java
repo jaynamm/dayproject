@@ -1,6 +1,7 @@
 package com.example.mydailytime_2;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mydailytime_2.helper.DayItemVO;
+import com.google.android.material.internal.CheckableImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,10 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
 
     private DayItemClickedListener myDayItemClickedListener;
     private DayItemLongClickedListener myDayItemLongClickedListener;
+    private ItemImgClickedListener itemImgClickedListener;
+
+    ArrayList<Integer> arrayImg;
+
 
     interface DayItemClickedListener{
         void dayItemClicked(DayItemVO dayItemVO);
@@ -38,11 +44,21 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
         myDayItemLongClickedListener=listener;
     }
 
+    interface ItemImgClickedListener{
+        void dayItemClicked(DayItemVO dayItemVO);
+    }
+    void setItemImgClickedListener(ItemImgClickedListener listener){
+        itemImgClickedListener=listener;
+    }
+
 
     public MyDayItemRecyclerViewAdapter(Context context) {
         data = new ArrayList<>();
         this.layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        arrayImg=new ArrayList<Integer>();
+        arrayImg.add(R.drawable.ic_good);
+        arrayImg.add(R.drawable.ic_soso);
+        arrayImg.add(R.drawable.ic_bad);
     }
 
     @NonNull
@@ -56,6 +72,7 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
     public void onBindViewHolder( ViewHolder holder, int position) {
         holder.bind(data.get(position));
         holder.dayItemVO=data.get(position);
+
         holder.dayItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,13 +88,18 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
             }
         });
 //                img clicked event
-//                dayitemimg.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//
-//                    }
-//                });
+        holder.dayitemimg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("DayItemAdapter","imgClicked "+position);
+                        itemImgClickedListener.dayItemClicked(holder.dayItemVO);
+//                        imgRepalce(holder);
+                    }
+                });
+
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -91,7 +113,7 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
         private final TextView dayItemcontent;
         private final TextView dayTime;
         private DayItemVO dayItemVO;
-//        private final CheckableImageButton dayitemimg;
+        private final CheckableImageButton dayitemimg;
 
 
          ViewHolder(View view) {
@@ -100,14 +122,14 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
             dayTitle = (TextView) view.findViewById(R.id.dayItmeTitle);
             dayItemcontent = (TextView) view.findViewById(R.id.dayItemContent);
             dayTime = (TextView) view.findViewById(R.id.dayTimeItem);
-//            dayitemimg = (CheckableImageButton)view.findViewById(R.id.dayItemImg);
+            dayitemimg = (CheckableImageButton)view.findViewById(R.id.dayItemImg);
         }
 
         void bind(final DayItemVO dayItemVO){
 
                 dayTitle.setText(dayItemVO.getItemTitle());
                 dayItemcontent.setText(dayItemVO.getItemContent());
-//                dayitemimg.setImageAlpha(dayItemVO.getItemImg());
+                dayitemimg.setImageResource(arrayImg.get(dayItemVO.getItemImg()));
                 dayTime.setText(dayItemVO.getItemTime());
 
 
