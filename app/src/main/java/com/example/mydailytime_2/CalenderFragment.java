@@ -38,6 +38,7 @@ public class CalenderFragment extends Fragment{
     private Date date;
     private SimpleDateFormat curCurrentFormat;
     private SimpleDateFormat curMonthFormat;
+    private SimpleDateFormat tempCurrentFormat;
     private String TAG = "CalenderFragment";
 ////    int yearTemp,monthTemp,dayOfMonthTemp;
 //    private static final String TODAY_DATE = "today_date";
@@ -63,6 +64,7 @@ public class CalenderFragment extends Fragment{
         date = new Date(now);
         //연,월,일을 따로 저장
         curCurrentFormat= new SimpleDateFormat("yyyy-MM-dd",Locale.KOREA);
+        tempCurrentFormat= new SimpleDateFormat("yyyy-MM-dd",Locale.KOREA);
         curMonthFormat = new SimpleDateFormat("MM",Locale.KOREA);
         String today = curCurrentFormat.format(date);
         clickCount=0;
@@ -103,7 +105,7 @@ public class CalenderFragment extends Fragment{
                 Toast.makeText(getActivity(), "position:"+position+", id"+id, Toast.LENGTH_SHORT).show();
                 int myDay =(position+1)-(monthGridAdapter.getDayNum()-1);
                 if(myDay>0){
-                    String selectDay = monthGridAdapter.getYyyy()+"-"+monthGridAdapter.getMonth()+"-"+String.valueOf(myDay);
+                    String selectDay = monthGridAdapter.getYyyy()+"-"+monthGridAdapter.getMonth()+"-"+String.format("%02d", myDay);
                     Log.d(TAG, "onItemClick: selectDay ="+ selectDay);
                     ((MainActivity) Objects.requireNonNull(getActivity())).selectDate=selectDay;
                     clickCount++;

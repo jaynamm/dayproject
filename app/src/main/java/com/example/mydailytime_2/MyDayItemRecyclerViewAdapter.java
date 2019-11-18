@@ -142,7 +142,9 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
     @SuppressLint("LongLogTag")
     public boolean setData(List<DayItemVO> newData) {
         Log.d(TAG, "setData: "+newData.toString());
+
         if (!newData.isEmpty()) {
+            //newData 에 data가 있으면 return true
             DayItemDiffCallback dayItemDiffCallback = new DayItemDiffCallback(data, newData);
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(dayItemDiffCallback);
 

@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,7 +19,6 @@ import com.example.mydailytime_2.dialog.InputDayItemDialog;
 import com.example.mydailytime_2.helper.DayItemVO;
 import com.example.mydailytime_2.viewModel.DayItemViewModel;
 
-import java.util.List;
 import java.util.Objects;
 
 
@@ -45,24 +43,14 @@ public class DayItemFragment extends Fragment {
             selectDate=((MainActivity) Objects.requireNonNull(getActivity())).selectDate;
             dayItemDate.setText(selectDate);
 
+            //observe data change
             dayItemModel.setInputDate(selectDate);
 //            dayItemModel.selectDateInsert(selectDate);
 //            mDayItemAdapter.notifyDataSetChanged();
             //해당 프레그먼트가 열리는 순간 $$이때 내부에 있는 데이터들을 바꿔야한다.
         }
-        else{
 
-            //해당프레그먼트가 보이지 않게 됐을때
-        }
         super.setUserVisibleHint(isVisibleToUser);
-    }
-
-    public static DayItemFragment newInstance(String todayDate) {
-        if (dayItemFragment != null) {dayItemFragment = new DayItemFragment();}
-//        Bundle args = new Bundle();
-//        args.putString(TODAY_DATE,todayDate);
-//        dayItemFragment.setArguments(args);
-        return dayItemFragment;
     }
 
     @Override
@@ -77,6 +65,7 @@ public class DayItemFragment extends Fragment {
                 Log.i("DayItemFregment","selectDateInsert 실행");
                 dayItemModel.selectDateInsert(selectDate);
                 //todo transformation에서 dayItemVOS를 최신화 시키지 못해서 오류가 나는 것같음....
+
             }
         });
 
@@ -101,12 +90,12 @@ public class DayItemFragment extends Fragment {
 
 
 
-         final Observer<List<DayItemVO>> dateObserver = new Observer<List<DayItemVO>>() {
-             @Override
-             public void onChanged(List<DayItemVO> dayItemVOS) {
-
-             }
-         };
+//         final Observer<List<DayItemVO>> dateObserver = new Observer<List<DayItemVO>>() {
+//             @Override
+//             public void onChanged(List<DayItemVO> dayItemVOS) {
+//
+//             }
+//         };
 
         //day item 데이터 베이스의 데이터 교체시 콜백함수 (데이터 관찰)
 //        dayItemModel.getDateData(selectDate).observe(this, dayItemVOS -> {
@@ -140,7 +129,7 @@ public class DayItemFragment extends Fragment {
                 }
 
                 dayItemVO.setItemImg(tempNum);
-                dayItemModel.insert(dayItemVO);
+                dayItemModel.update(dayItemVO);
             }
         });
 
@@ -170,7 +159,7 @@ public class DayItemFragment extends Fragment {
         inputDayItemDialog.setOnSaveButtonClickListener(new InputDayItemDialog.onSaveButtonClickListener() {
             @Override
             public void onSaveButtonClick(DayItemVO dayItemVO) {
-                dayItemModel.insert(dayItemVO);
+                dayItemModel.update(dayItemVO);
             }
 
             @Override

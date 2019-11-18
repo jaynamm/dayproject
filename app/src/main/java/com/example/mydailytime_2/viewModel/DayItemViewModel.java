@@ -1,6 +1,7 @@
 package com.example.mydailytime_2.viewModel;
 
 import android.app.Application;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.example.mydailytime_2.helper.DayItemDAO;
 import com.example.mydailytime_2.helper.DayItemDatebase;
 import com.example.mydailytime_2.helper.DayItemVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DayItemViewModel extends AndroidViewModel {
@@ -22,11 +24,15 @@ public class DayItemViewModel extends AndroidViewModel {
 
     private MutableLiveData<String> selectDate = new MutableLiveData<>();
     public LiveData<List<DayItemVO>> mSelectDate =
-            Transformations.distinctUntilChanged(Transformations.switchMap(selectDate,(date)  -> {
+          Transformations.switchMap(selectDate,(date)  -> {
                 Log.d(TAG, "Transformation date: " +date);
                 return itemDB.dayItemDAO().getDateData(date);
-            }));
+            });
 
+//    Transformations.distinctUntilChanged(Transformations.switchMap(selectDate,(date)  -> {
+//        Log.d(TAG, "Transformation date: " +date);
+//        return itemDB.dayItemDAO().getDateData(date);
+//    }));
 
     public void setInputDate(String date) {
         Log.d(TAG, "setInputDate: "+date);
@@ -47,13 +53,14 @@ public class DayItemViewModel extends AndroidViewModel {
 //    }
 
 
-    public void insert(DayItemVO itemVO){
+    private void insert(List<DayItemVO> itemVO){
         new InsertAsyncTask(itemDB.dayItemDAO()).execute(itemVO);
     }
 
-//    public void update(DayItemVO itemVO){
-//        new UpdateAsyncTask(itemDB.dayItemDAO()).execute(itemVO);
-//    }
+    public void update(DayItemVO itemVO){
+        new UpdateAsyncTask(itemDB.dayItemDAO()).execute(itemVO);
+    }
+
 //    public void delete(DayItemVO itemVO){
 //        new DeleteAsyncTask(itemDB.dayItemDAO()).execute(itemVO);
 //    }
@@ -79,19 +86,19 @@ public class DayItemViewModel extends AndroidViewModel {
     //calender에서 날짜를 클릭하면 실행되는 메소드 (아규먼트에서 실행되는게 좋으려나 )
     //DB에서 날짜를 대조 후 해당되는 날짜의 데이터가 없으면 새로 만들어준다.
     public void selectDateInsert(String date){
-//        if (selectDate(date)) {
             Log.i("DayItemViewModel", "selectDateInsert item 24개 생성");
+            List<DayItemVO> ListTemp = new ArrayList<DayItemVO>();
             for (int i = 0; i < 24; i++) {
                 DayItemVO temp = new DayItemVO();
                 temp.setItemDate(date);
                 temp.setItemTime(createTimeData(i));
                 temp.setItemImg(1);
+                ListTemp.add(temp);
                 Log.d("(selectDateInsert" + i + ")", temp.getItemDate() + "," + temp.getItemTime());
-                insert(temp);
             }
-//        }
-
+            insert(ListTemp);
     }
+
         private static String createTimeData(int position) {
             String setTime;
             String text = " 시";
@@ -122,34 +129,35 @@ public class DayItemViewModel extends AndroidViewModel {
 //    }
 
 
-    private static class InsertAsyncTask extends android.os.AsyncTask<DayItemVO,Void,Void> {
+    private static class InsertAsyncTask extends android.os.AsyncTask<List<DayItemVO>,Void,Void> {
 
         private DayItemDAO mDayItemDAO;
 
         private InsertAsyncTask(DayItemDAO mDayItemDAO) {
             this.mDayItemDAO = mDayItemDAO;
         }
+
+        @SafeVarargs
         @Override
-        protected Void doInBackground(DayItemVO... itemVOS) {
-            mDayItemDAO.insert(itemVOS[0]);
+        protected final Void doInBackground(List<DayItemVO>... lists) {
+            mDayItemDAO.insert(lists[0]);
             return null;
         }
-
-
     }
-//    private static class UpdateAsyncTask extends AsyncTask<DayItemVO,Void,Void>{
-//
-//        private DayItemDAO mDayItemDAO;
-//
-//        public UpdateAsyncTask(DayItemDAO mDayItemDAO) {
-//            this.mDayItemDAO = mDayItemDAO;
-//        }
-//        @Override
-//        protected Void doInBackground(DayItemVO... itemVOS) {
-//            mDayItemDAO.update(itemVOS[0]);
-//            return null;
-//        }
-//    }
+
+    private static class UpdateAsyncTask extends AsyncTask<DayItemVO,Void,Void> {
+
+        private DayItemDAO mDayItemDAO;
+
+        private UpdateAsyncTask(DayItemDAO mDayItemDAO) {
+            this.mDayItemDAO = mDayItemDAO;
+        }
+        @Override
+        protected Void doInBackground(DayItemVO... itemVOS) {
+            mDayItemDAO.update(itemVOS[0]);
+            return null;
+        }
+    }
 //
 //    private static class DeleteAsyncTask extends AsyncTask<DayItemVO,Void,Void>{
 //
