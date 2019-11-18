@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,8 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mydailytime_2.dialog.InputDayItemDialog;
 import com.example.mydailytime_2.helper.DayItemVO;
 import com.example.mydailytime_2.viewModel.DayItemViewModel;
-import com.google.android.material.internal.CheckableImageButton;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -28,6 +29,7 @@ public class DayItemFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final String TODAY_DATE ="today_date";
+    private static final String TAG = "DayItemFragment";
     private static DayItemFragment dayItemFragment;
     MyDayItemRecyclerViewAdapter mDayItemAdapter;
     DayItemViewModel dayItemModel;
@@ -40,10 +42,12 @@ public class DayItemFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if(isVisibleToUser){
-
+            selectDate=((MainActivity) Objects.requireNonNull(getActivity())).selectDate;
             dayItemDate.setText(selectDate);
-//            Log.i("DayItemFregment","selectDateInsert 실행");
+
+            dayItemModel.setInputDate(selectDate);
 //            dayItemModel.selectDateInsert(selectDate);
+//            mDayItemAdapter.notifyDataSetChanged();
             //해당 프레그먼트가 열리는 순간 $$이때 내부에 있는 데이터들을 바꿔야한다.
         }
         else{
@@ -65,6 +69,17 @@ public class DayItemFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         selectDate=((MainActivity) Objects.requireNonNull(getActivity())).selectDate;
+        dayItemModel = ViewModelProviders.of(this).get(DayItemViewModel.class);
+        dayItemModel.setInputDate(selectDate);
+        dayItemModel.mSelectDate.observe(this, dayItemVOS -> {
+            Log.d(TAG, "observe 쿼리 실행 .....dayItemVOS"+dayItemVOS.toString());
+            if (!mDayItemAdapter.setData(dayItemVOS)){
+                Log.i("DayItemFregment","selectDateInsert 실행");
+                dayItemModel.selectDateInsert(selectDate);
+                //todo transformation에서 dayItemVOS를 최신화 시키지 못해서 오류가 나는 것같음....
+            }
+        });
+
     }
 
     @Override
@@ -73,13 +88,10 @@ public class DayItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dayitem_list, container, false);
 
         //viewmodel 생성
-        dayItemModel = ViewModelProviders.of(this).get(DayItemViewModel.class);
         dayItemDate = (TextView)view.findViewById(R.id.dayItem_List_Date);
         TextView fragment2Title = (TextView)view.findViewById(R.id.fragment2Title);
 //        TextView fragment2Memo = (TextView)view.findViewById(R.id.fragment2memo);
         RecyclerView recyclerView = (RecyclerView)view.findViewById(R.id.list);
-        CheckableImageButton dayItemImg = (CheckableImageButton)view.findViewById(R.id.dayItemImg);
-// Set the adapter
 
             Context context = view.getContext();
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -88,20 +100,24 @@ public class DayItemFragment extends Fragment {
             recyclerView.setAdapter(mDayItemAdapter);
 
 
-        //argument에 데이터가 있으면 데이터를 dayitemDate에 넣어준다.
-//        if(getArguments()!= null){
-//        String selectDate=getArguments().getString(TODAY_DATE);
-//        dayItemDate.setText(selectDate);
-//        }
+
+         final Observer<List<DayItemVO>> dateObserver = new Observer<List<DayItemVO>>() {
+             @Override
+             public void onChanged(List<DayItemVO> dayItemVOS) {
+
+             }
+         };
 
         //day item 데이터 베이스의 데이터 교체시 콜백함수 (데이터 관찰)
-        dayItemModel.getDateData(selectDate).observe(this, dayItemVOS -> {
-            mDayItemAdapter.setData(dayItemVOS);
-            if (mDayItemAdapter.getItemCount()==0){
-                Log.i("DayItemFregment","selectDateInsert 실행");
-                dayItemModel.selectDateInsert(selectDate);
-            }
-        });
+//        dayItemModel.getDateData(selectDate).observe(this, dayItemVOS -> {
+//            mDayItemAdapter.setData(dayItemVOS);
+//            if (mDayItemAdapter.getItemCount()==0){
+//                Log.i("DayItemFregment","selectDateInsert 실행");
+//                dayItemModel.selectDateInsert(selectDate);
+//            }
+//        });
+
+
 
         //클릭리스너
         mDayItemAdapter.setMyDayItemClickedListener(new MyDayItemRecyclerViewAdapter.DayItemClickedListener() {
@@ -109,7 +125,7 @@ public class DayItemFragment extends Fragment {
             public void dayItemClicked(DayItemVO dayItemVO) {
                 Log.d("DayItemFragment", "dayItemClicked:"+dayItemVO.getItemTime());
                 showInputDayItemDialog(dayItemVO);
-
+                Toast.makeText(context, ""+dayItemVO.getItemDate(), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -128,7 +144,7 @@ public class DayItemFragment extends Fragment {
             }
         });
 
-        //롱클릭 리스너 delete 구문인데 필요할까?
+//        //롱클릭 리스너 delete 구문인데 필요할까?
 //        mDayItemAdapter.setMyDayItemLongClickedListener(new MyDayItemRecyclerViewAdapter.DayItemLongClickedListener() {
 //            @Override
 //            public void dayItemLongClicked(DayItemVO dayItemVO) {
@@ -148,14 +164,6 @@ public class DayItemFragment extends Fragment {
 //        });
         return view;
     }
-
-//    public void imgRepalce(DayItemVO dayItemVO ){
-//        switch (dayItemVO.getItemImg()){
-//            case 0 : holder.dayitemimg.setImageResource(R.drawable.ic_good);
-//            case 1 : holder.dayitemimg.setImageResource(R.drawable.ic_soso);
-//            case 2 : holder.dayitemimg.setImageResource(R.drawable.ic_bad);
-//        }
-//    }
 
     private void showInputDayItemDialog(DayItemVO dayItemVO) {
         InputDayItemDialog inputDayItemDialog = InputDayItemDialog.newInstance(dayItemVO);

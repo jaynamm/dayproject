@@ -15,6 +15,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
     MenuItem prevMenuItem;
@@ -25,9 +26,9 @@ public class MainActivity extends AppCompatActivity {
     String todayDateNum;
     Date mDate;
     String currentTime;
-    SimpleDateFormat currentTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
-    SimpleDateFormat mFormatDay = new SimpleDateFormat("dd");
+    SimpleDateFormat currentTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREA);
+    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+    SimpleDateFormat mFormatDay = new SimpleDateFormat("dd", Locale.KOREA);
 
 
     @Override

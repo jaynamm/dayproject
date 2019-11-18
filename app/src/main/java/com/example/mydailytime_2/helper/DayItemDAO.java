@@ -19,6 +19,9 @@ public interface DayItemDAO {
     @Query("SELECT * FROM DayItemVO WHERE DATE(ITEM_DATE)=(:today) ORDER BY ITEM_TIME ASC")
     LiveData<List<DayItemVO>> getDateData(String today);
 
+    @Query("SELECT DISTINCT * FROM DayItemVO WHERE DATE(ITEM_DATE)=(:today)")
+    List<DayItemVO> getSelectDateData(String today);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(DayItemVO vo);
 

@@ -1,5 +1,6 @@
 package com.example.mydailytime_2;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,12 +20,13 @@ import java.util.List;
 
 public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItemRecyclerViewAdapter.ViewHolder> {
 
+    private static final String TAG = "MyDayItemRecyclerViewAdapter";
     private List<DayItemVO> data;
     private LayoutInflater layoutInflater;
     private Context context;
 
     private DayItemClickedListener myDayItemClickedListener;
-    private DayItemLongClickedListener myDayItemLongClickedListener;
+//    private DayItemLongClickedListener myDayItemLongClickedListener;
     private ItemImgClickedListener itemImgClickedListener;
 
     ArrayList<Integer> arrayImg;
@@ -37,12 +39,12 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
         myDayItemClickedListener=listener;
     }
 
-    interface DayItemLongClickedListener {
-        void dayItemLongClicked(DayItemVO dayItemVO);
-    }
-    void setMyDayItemLongClickedListener(DayItemLongClickedListener listener){
-        myDayItemLongClickedListener=listener;
-    }
+//    interface DayItemLongClickedListener {
+//        void dayItemLongClicked(DayItemVO dayItemVO);
+//    }
+//    void setMyDayItemLongClickedListener(DayItemLongClickedListener listener){
+//        myDayItemLongClickedListener=listener;
+//    }
 
     interface ItemImgClickedListener{
         void dayItemClicked(DayItemVO dayItemVO);
@@ -80,20 +82,20 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
 
             }
         });
-        holder.dayItemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                myDayItemLongClickedListener.dayItemLongClicked(holder.dayItemVO);
-                return true;
-            }
-        });
+//        holder.dayItemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                myDayItemLongClickedListener.dayItemLongClicked(holder.dayItemVO);
+//                return true;
+//            }
+//        });
+
 //                img clicked event
         holder.dayitemimg.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Log.d("DayItemAdapter","imgClicked "+position);
                         itemImgClickedListener.dayItemClicked(holder.dayItemVO);
-//                        imgRepalce(holder);
                     }
                 });
 
@@ -137,17 +139,24 @@ public class MyDayItemRecyclerViewAdapter extends RecyclerView.Adapter<MyDayItem
 
     }
 
-    public void setData(List<DayItemVO> newData) {
-        if (data != null) {
+    @SuppressLint("LongLogTag")
+    public boolean setData(List<DayItemVO> newData) {
+        Log.d(TAG, "setData: "+newData.toString());
+        if (!newData.isEmpty()) {
             DayItemDiffCallback dayItemDiffCallback = new DayItemDiffCallback(data, newData);
             DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(dayItemDiffCallback);
 
             data.clear();
             data.addAll(newData);
             diffResult.dispatchUpdatesTo(this);
+            Log.d(TAG, "setData: return true ");
+            return true;
         } else {
+            //todo 여기서 Dayitemfragment로 전송 후 다시 setData를 콜
             // first initialization
-            data = newData;
+            Log.d(TAG, "setData: return false ");
+            return false;
+//            data = newData;
         }
     }
 
